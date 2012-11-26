@@ -3,9 +3,8 @@ all: compile
 compile:
 	@ ./rebar compile
 
-tests:
+tests: compile
 	@ ./rebar eunit
 
 clean:
 	@ ./rebar clean
-

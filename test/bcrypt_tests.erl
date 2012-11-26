@@ -101,6 +101,7 @@ simple_nif_test_() ->
      [{timeout, 1000,
        fun() ->
                {ok, Salt} = bcrypt:gen_salt(),
+               ?assertEqual(29, byte_size(Salt)),
                {ok, Hash} = bcrypt:hashpw(<<"foo">>, Salt),
                ?assert({ok, Hash} =:= bcrypt:hashpw(<<"foo">>, Hash)),
                ?assertNot({ok, Hash} =:= bcrypt:hashpw(<<"bar">>, Hash))
@@ -117,6 +118,7 @@ simple_port_test_() ->
      [{timeout, 1000,
        fun() ->
                {ok, Salt} = bcrypt:gen_salt(),
+               ?assertEqual(29, byte_size(Salt)),
                {ok, Hash} = bcrypt:hashpw(<<"foo">>, Salt),
                ?assert({ok, Hash} =:= bcrypt:hashpw(<<"foo">>, Hash)),
                ?assertNot({ok, Hash} =:= bcrypt:hashpw(<<"bar">>, Hash))
