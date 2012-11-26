@@ -146,6 +146,8 @@ static ERL_NIF_TERM bcrypt_encode_salt(ErlNifEnv* env, int argc, const ERL_NIF_T
 {
     ErlNifBinary csalt, bin;
     unsigned long log_rounds;
+    char salt_enc[64] = { 0 };
+    u_int16_t salt_enc_len;
 
     if (!enif_inspect_binary(env, argv[0], &csalt) || 16 != csalt.size) {
         return enif_make_badarg(env);
@@ -156,13 +158,15 @@ static ERL_NIF_TERM bcrypt_encode_salt(ErlNifEnv* env, int argc, const ERL_NIF_T
         return enif_make_badarg(env);
     }
 
-    if (!enif_alloc_binary(64, &bin)) {
+    encode_salt(&salt_enc[0], (u_int8_t*)csalt.data, csalt.size, log_rounds);
+    enif_release_binary(&csalt);
+    salt_enc_len = strlen(salt_enc);
+
+    if (!enif_alloc_binary(salt_enc_len, &bin)) {
         enif_release_binary(&csalt);
         return enif_make_badarg(env);
     }
-
-    encode_salt((char *)bin.data, (u_int8_t*)csalt.data, csalt.size, log_rounds);
-    enif_release_binary(&csalt);
+    memcpy(bin.data, salt_enc, salt_enc_len);
 
     return enif_make_binary(env, &bin);
 }
