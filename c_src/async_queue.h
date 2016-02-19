@@ -32,7 +32,6 @@
 #ifndef __ASYNC_QUEUE_H_INCLUDED__
 #define __ASYNC_QUEUE_H_INCLUDED__
 
-#include <sys/queue.h>
 #include <sys/types.h>
 #include <sys/time.h>
 #include <stdio.h>
@@ -43,6 +42,7 @@
 #include <err.h>
 
 #include <erl_nif.h>
+#include "queue.h"
 
 #ifdef __cplusplus
 extern "C" {

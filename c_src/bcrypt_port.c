@@ -36,7 +36,7 @@
 typedef unsigned char byte;
 
 char *bcrypt(const char *, const char *);
-void encode_salt(char *, u_int8_t *, u_int16_t, u_int8_t);
+void encode_salt(char *, uint8_t *, uint16_t, uint8_t);
 
 /* These methods came from the Erlang port command tutorial:
  * http://www.erlang.org/doc/tutorial/c_port.html#4.2
@@ -149,7 +149,7 @@ process_encode_salt(ETERM *pid, ETERM *data)
         } else if (log_rounds < 4 || log_rounds > 31) {
             retval = process_reply_error(pid, CMD_SALT, "Invalid number of rounds");
         } else {
-            encode_salt(ret, (u_int8_t*)csalt, csaltlen, log_rounds);
+            encode_salt(ret, (uint8_t*)csalt, csaltlen, log_rounds);
             ret_bin = erl_mk_binary(ret, strlen(ret));
             retval = process_reply(pid, CMD_SALT, ret_bin);
             erl_free_term(ret_bin);

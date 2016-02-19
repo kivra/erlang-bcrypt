@@ -6,7 +6,7 @@
 typedef unsigned char byte;
 
 char *bcrypt(const char *, const char *);
-void encode_salt(char *, u_int8_t *, u_int16_t, u_int8_t);
+void encode_salt(char *, uint8_t *, uint16_t, uint8_t);
 
 typedef struct {
     ErlNifResourceType *bcrypt_rt;
